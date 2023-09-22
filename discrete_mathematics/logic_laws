@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MATH 1240 Flashcards</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .rectangle {
+            width: 50%;
+            height: 40%;
+            background-color: lightgray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rectangle" id="flashcard">
+        <h1>Welcome to MATH 1240 laws of logic flashcards. Press Enter to begin.</h1>
+    </div>
+
+    <script>
+        const flashcard = document.getElementById("flashcard");
+        const cards = [
+            "Law of Double Negative",
+            "DeMorgan's Laws",
+            "Commutative Laws",
+            "Associate Laws",
+            "Distributive Laws",
+            "Idempotent Laws",
+            "Identity Laws",
+            "Inverse Laws",
+            "Domination Laws",
+            "Absorption Laws"
+        ];
+        let currentIndex = 0;
+        let onFlashcards = false;
+
+        document.addEventListener("keydown", function (event) {
+            if (!onFlashcards && event.key === "Enter") {
+                onFlashcards = true;
+                currentIndex = 0;
+                flashcard.innerHTML = `<h1>${cards[currentIndex]}</h1>`;
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (onFlashcards) {
+                if (event.key === "ArrowRight") {
+                    currentIndex = (currentIndex + 1) % cards.length;
+                } else if (event.key === "ArrowLeft") {
+                    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                }
+                flashcard.innerHTML = `<h1>${cards[currentIndex]}</h1>`;
+            }
+        });
+    </script>
+</body>
+
+</html>
