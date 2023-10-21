@@ -34,7 +34,8 @@
 
     <script>
         const flashcard = document.getElementById("flashcard");
-        const cards = [
+
+        const law_names = [
             "Law of Double Negative",
             "DeMorgan's Laws",
             "Commutative Laws",
@@ -46,25 +47,52 @@
             "Domination Laws",
             "Absorption Laws"
         ];
+        
+        const law_symbolic = [
+            "¬¬p ⟺ p",
+            "¬(p v q) ⟺ ¬p ^ ¬q<br>¬(p ^ q) ⟺ ¬p v ¬q",
+            "p v q ⟺ q v p<br>p ^ q ⟺ q ^ p",
+            "p v (q v r) ⟺ (p v q) v r<br>p ^ (q ^ r) ⟺ (p ^ q) ^ r",
+            "p v (q ^ r) ⟺ (p v q) ^ (p v r)<br>p ^ (q v r) ⟺ (p ^ q) v (p ^ r)",
+            "p v p ⟺ p<br>p ^ p ⟺ p",
+            "p v F ⟺ p<br>p ^ T ⟺ p",
+            "p v ¬p ⟺ T<br>p ^ ¬p ⟺ F",
+            "p v T ⟺ T<br>p ^ F ⟺ F",
+            "p v (p ^ q) ⟺ p<br>p ^ (p v q) ⟺ p"
+        ];
+
         let currentIndex = 0;
         let onFlashcards = false;
+        let show_answer = false;
 
         document.addEventListener("keydown", function (event) {
             if (!onFlashcards && event.key === "Enter") {
                 onFlashcards = true;
                 currentIndex = 0;
-                flashcard.innerHTML = `<h1>${cards[currentIndex]}</h1>`;
+                flashcard.innerHTML = `<h1>${law_names[currentIndex]}</h1>`;
             }
         });
 
         document.addEventListener("keydown", function (event) {
             if (onFlashcards) {
                 if (event.key === "ArrowRight") {
-                    currentIndex = (currentIndex + 1) % cards.length;
+                    currentIndex = (currentIndex + 1) % law_names.length;
                 } else if (event.key === "ArrowLeft") {
-                    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                    currentIndex = (currentIndex - 1 + law_names.length) % law_names.length;
                 }
-                flashcard.innerHTML = `<h1>${cards[currentIndex]}</h1>`;
+                flashcard.innerHTML = `<h1>${law_names[currentIndex]}</h1>`;
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (onFlashcards) {
+                if (event.key === " " && !show_answer) {
+                    flashcard.innerHTML = `<h1>${law_symbolic[currentIndex]}</h1>`;
+                    show_answer = true;
+                } else if (event.key === " " && show_answer) {
+                    flashcard.innerHTML = `<h1>${law_names[currentIndex]}</h1>`;
+                    show_answer = false;
+                }
             }
         });
     </script>
